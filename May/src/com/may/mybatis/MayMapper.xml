@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com/may/mybatis/MayMapper.xml">
+	<!--blogDAO -->
+	<insert id="mginsert" parameterType="com.may.dto.blogDTO">
+		
+		
+		<choose>
+			<when test="content !=null">
+				INSERT INTO Mayblog(bno, title, content, writer, filename, filesize)
+				VALUES(seq_mayblog.NEXTVAL, #{title}, #{content}, #{writer}, #{filename}, #{filesize})
+			</when>
+			
+			<otherwise>
+				INSERT INTO Mayblog(bno, title, writer, filename, filesize)
+				VALUES(seq_mayblog.NEXTVAL, #{title}, #{writer}, #{filename}, #{filesize})
+			</otherwise>
+				
+		</choose>
+		
+	</insert>
+	<update id="viewCnt">
+		UPDATE Mayblog 
+			SET viewcnt = viewcnt + 1
+			WHERE bno = #{bno} 
+	</update>
+	
+	
+	
+	<select id="blogDetailView" resultType="com.may.dto.blogDTO">
+		SELECT * FROM Mayblog
+		WHERE bno = #{bno}
+	</select>
+	
+	
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+			SELECT count(bno)
+			FROM Mayblog
+			WHERE bno > 0 ]]>
+
+		  	<if test='flag =="1"'>
+	         <![CDATA[AND	title LIKE '%'||#{keyword}||'%']]>
+	        </if>
+	                        
+	        <if test='flag =="2"'>
+	          <![CDATA[AND	content LIKE '%'||#{keyword}||'%']]>
+	        </if>
+	                        
+	        <if test='flag =="3"'>
+	          <![CDATA[AND	title LIKE '%'||#{keyword}||'%' OR content LIKE '%'||#{keyword}||'%']]>
+	         </if>
+	                        
+	        <if test='flag =="4"'>
+	         <![CDATA[AND	writer LIKE '%'||#{keyword}||'%']]>
+	        </if>
+	</select>
+	
+	
+	
+	<select id="blogList" resultType="com.may.dto.blogDTO">
+		<![CDATA[
+			SELECT * FROM ( SELECT rownum rnum,
+	                a.*
+	                FROM (SELECT *
+	                        FROM Mayblog
+	                        WHERE bno > 0  ]]>
+	                        
+	                        <if test='flag =="1"'>
+	                       <![CDATA[AND	title LIKE '%'||#{keyword}||'%']]>
+	                        </if>
+	                        
+	                        <if test='flag =="2"'>
+	                       <![CDATA[AND	content LIKE '%'||#{keyword}||'%']]>
+	                        </if>
+	                        
+	                        <if test='flag =="3"'>
+	                       <![CDATA[AND	title LIKE '%'||#{keyword}||'%' OR content LIKE '%'||#{keyword}||'%']]>
+	                        </if>
+	                        
+	                        <if test='flag =="4"'>
+	                       <![CDATA[AND	writer LIKE '%'||#{keyword}||'%']]>
+	                        </if>
+	                        
+	                        
+	                        
+	         <![CDATA[      ORDER BY bno DESC
+	                        ) a
+	            )
+			WHERE rnum BETWEEN #{pageStart} AND #{perPageNum}
+			
+			]]>
+	
+	</select>
+
+
+
+
+
+	<!-- productDAO -->
+  <select id="bestView" resultType="com.may.dto.ProductDTO">
+ 	<![CDATA[
+	  	SELECT * FROM (SELECT * FROM Mayproduct ORDER BY p_good DESC)
+		WHERE ROWNUM <=5
+	]]>
+  </select>
+  <select id="newView" resultType="com.may.dto.ProductDTO">
+  	<![CDATA[
+  		SELECT * FROM (SELECT * FROM Mayproduct ORDER BY p_indate DESC)
+		WHERE ROWNUM <=5
+ 	 ]]>
+  </select>
+  
+  <select id="allView" resultType="com.may.dto.ProductDTO">
+  	
+  		SELECT p_img FROM Mayproduct
+	
+ 	
+  </select>
+  
+	<!-- MEMBERDAO -->
+	<!-- maym -->
+	<insert id="maym" parameterType="com.may.dto.MayMemberDTO">
+		INSERT INTO maymember(id, pw, name, phone, email)
+		VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email})
+	</insert>
+	
+	
+	
+	<select id="confirmID" parameterType="String" resultType="String"> 
+		SELECT * FROM maymember
+	 	WHERE id= #{userid}
+	</select>
+
+
+
+	<select id="confirmPw" parameterType="com.may.dto.MayMemberDTO" resultType="String">
+		SELECT id FROM maymember 
+	 	WHERE pw= #{pw} AND id= #{id}
+	</select>
+	
+	
+	<select id="logincheck" parameterType="com.may.dto.MayMemberDTO" resultType="com.may.dto.MayMemberDTO">
+		SELECT * FROM maymember
+		WHERE id=#{id} AND pw=#{pw}
+	</select>
+	
+	
+	
+	<update id="update" parameterType="com.may.dto.MayMemberDTO" >
+		UPDATE maymember SET
+		name=#{name},
+		phone=#{phone},
+		email=#{email} 
+		WHERE id=#{id}
+	</update>
+	
+	
+	
+	<update id="updatepw" parameterType="com.may.dto.MayMemberDTO">
+		UPDATE maymember SET
+		pw = #{pw}
+		WHERE id = #{id}
+		
+	</update>
+	
+	<delete id="deletmember" parameterType="String">
+		DELETE FROM maymember
+		WHERE id = #{userid}
+	</delete>
+	
+</mapper>
+	
