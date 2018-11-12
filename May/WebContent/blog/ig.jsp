@@ -218,6 +218,17 @@
 
 
 </style>
+<script type="text/javascript" src="<%=path%>/SmartEditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+		
+		$(document).on("click", "#blogupdate", function(){
+			location.href="blogupdate.bizpoll?bno=${blogview.bno}"
+			
+		});
+</script>
+
+
 </head>
 <body>
 	<div id="gallery"> 
@@ -234,8 +245,8 @@
 						<p>${blogview.content}<p>
 					</div>
 						<div id="file">
-							<a href="download.bizpoll?file="${blogview.filename}>${blogview.filename}(<fmt:formatNumber type="number" pattern="0.0" value="${blogview.filesize}"/>)kb</a>
-							
+							<a href="download.bizpoll?file=${blogview.filename}">${blogview.filename}
+							(<fmt:formatNumber type="number" pattern="0.0" value="${blogview.filesize}"/>)kb</a>
 						</div>
 					
 					<div id="war">
@@ -296,7 +307,7 @@
 		<div id="lingk">
 			<c:if test="${sessionScope.loginUser.id == blogview.writer}">
 				<button class="btn4">삭제</button>
-				<button class="btn4">수정</button>
+				<button class="btn4" id="blogupdate">수정</button>
 			</c:if>
 			<button class="btn4">답변</button>
 			<button class="btn4">목록</button>

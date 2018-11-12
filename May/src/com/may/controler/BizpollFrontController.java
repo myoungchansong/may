@@ -15,6 +15,7 @@ import com.may.action.Constructbizpoll;
 import com.may.action.blogAction;
 import com.may.action.blogDetailAction;
 import com.may.action.blogSearchAction;
+import com.may.action.bloguptaeAction;
 import com.may.action.blogviewcntAction;
 import com.may.action.downloadAction;
 import com.may.action.galleryAction;
@@ -144,6 +145,9 @@ public class BizpollFrontController extends HttpServlet {
 			forward = action.excute(request, response);
 		} else if (command.equals("/download.bizpoll")) {
 			action = new downloadAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/blogupdate.bizpoll")) {
+			action = new bloguptaeAction();
 			forward = action.excute(request, response);
 		}
 		

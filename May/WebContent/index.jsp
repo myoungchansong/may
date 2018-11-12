@@ -274,7 +274,6 @@
 </script>
 </head>
 <body>
-<h1>집에 가고 싶어요...</h1>
 	<div class="wrapper">
 		<div id="top">
 			<h1>

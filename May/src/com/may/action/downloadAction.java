@@ -16,7 +16,8 @@ public class downloadAction  implements Action {
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String filename = request.getParameter("filename");
+		String filename = request.getParameter("file");
+		
 		System.out.println("파일이름:"+filename);
 	
 		String path = Constants.UPLOAD_PATH + filename;
