@@ -168,4 +168,26 @@ public class blogDAO {
 		
 		return result;
 	}
+	
+	public int blogupdate(blogDTO bDto) {
+		int result =0;
+		sqlSession = sqlSessionFactory.openSession();
+		
+		System.out.println("==================dao"+bDto.toString());
+		try {
+			
+//										값을 하나밖에 못보낸다 
+			result = sqlSession.update("blogupdate", bDto);
+			System.out.println("====================="+result);
+			sqlSession.commit();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		return result;
+	}
 }

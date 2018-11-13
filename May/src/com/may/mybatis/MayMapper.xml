@@ -5,8 +5,17 @@
 
 <mapper namespace="com/may/mybatis/MayMapper.xml">
 	<!--blogDAO -->
+	<update id="blogupdate" parameterType="com.may.dto.blogDTO">
+		UPDATE Mayblog 
+			SET title = #{title},
+				content = #{content},
+				writer = #{writer},
+				filename = #{filename},
+				filesize = #{filesize}
+			WHERE bno = #{bno} 
+	</update>
+	
 	<insert id="mginsert" parameterType="com.may.dto.blogDTO">
-		
 		
 		<choose>
 			<when test="content !=null">

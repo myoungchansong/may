@@ -124,6 +124,16 @@ a {
 	#err_check{
 		 display:none; 
 	}
+	
+	.btn-file{
+		height: 35px;
+		width: 80px;
+		background-color: #2ecc71;
+		border: none;
+		border-radius: 6px;
+		margin: 20px 5px;
+		color: white;
+	}
 </style>
 
 <script type="text/javascript" src="<%=path%>/SmartEditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
@@ -143,22 +153,38 @@ a {
 		$("#frm_bin").submit();
 	});
 
-
-
+	$(document).on("click", ".btn-file", function(){
+		$("#uploadfile").click();
+		
+	});
+	
+ 	$(document).on("change", "#uploadfile", function(){
+		var filename = this.files[0].name;
+		$("#file-name").text(filename);
+		$("#close_btn").css("display", "block");
+	});
+	 $(document).on("click", "#close_btn", function(){
+		$("#uploadfile").replaceWith($("#uploadfile").clone(true));
+		$("#uploadfile").val("");
+		$("#file-name").text("선택된 파일 없음");
+		$("#close_btn").css("display", "none");
+	}); 
+	
+	 
 	
 </script>
 </head>
 <body>
 	<div id="gallery">
 		<div id="imgbox">
-				<img src="<%=path%>/img/010.jpg">
+				<img src="<%=path%>/img/${blogview.filename}">
 		</div>
 		
 		
 		
 		<div id="conbox">
 			<div id="conwar">
-				<form action="mgplayAction.bizpoll" method="post" name="frm_bin" id="frm_bin" enctype="multipart/form-data">
+				<form action="blogupadateplay.bizpoll" method="post" name="frm_bin" id="frm_bin" enctype="multipart/form-data">
 					<p class="contitle">제목</p>
 					<input type="text" name="tilte" id="title" value="${blogview.title}">
 					
@@ -175,7 +201,26 @@ a {
 					<input type="text" name="username" id="title" value="${sessionScope.loginUser.id}" readonly="readonly">
 					
 					
-						<div><input type="file" name="uploadfile" id="uploadfile"></div>
+						<div>
+							<input type="file" name="uploadfile" id="uploadfile" style="display: none">
+							<input type="button" class="btn btn-file" value="파일 선택">
+						<!--	<span class="files" id="file-name" style="height: 29px; border: none;">선택된 파일 없음</span>  -->
+						
+							<c:choose>
+									<c:when test="${blogview.filename==null}">
+										<span class="files" id="file-name" style="height: 29px; border: none;">선택된 파일 없음</span>
+									</c:when>
+									<c:otherwise>
+										<span class="files" id="file-name" style="height: 29px; border: none;">${blogview.filename}</span>
+										<i class="fa fa-close" id="close_btn"></i>
+									</c:otherwise>
+							</c:choose>
+							
+							
+							<input type="hidden" id="bno" name="bno" value="${blogview.bno}">
+							<input type="hidden" id="post-file-name" name="post-file-name" value="${blogview.filename}">
+							<input type="hidden" id="post-file-name" name="post-file-size" value="${blogview.filesize}">
+						</div>
 				
 					<button id="btn-2">수정하기</button>
 				</form>

@@ -124,6 +124,15 @@ a {
 	#err_check{
 		 display:none; 
 	}
+	.btn-file{
+		height: 35px;
+		width: 80px;
+		background-color: #2ecc71;
+		border: none;
+		border-radius: 6px;
+		margin: 20px 5px;
+		color: white;
+	}
 </style>
 
 <script type="text/javascript" src="<%=path%>/SmartEditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
@@ -143,8 +152,30 @@ a {
 		$("#frm_bin").submit();
 	});
 
-
-
+	$(document).on("click", ".btn-file", function(){
+		$("#uploadfile").click();
+		
+	});
+	
+ 	$(document).on("change", "#uploadfile", function(){
+		var filesize = $(this)[0].files;
+		
+		if(filesize.length < 1) {
+			$("#file-name").text("선택된 파일 없음");
+			$("#close_btn").css("display", "none");
+			
+		}else {
+			var filename = this.files[0].name;
+			$("#file-name").text(filename);
+			$("#close_btn").css("display", "block");
+		}
+	});
+	 $(document).on("click", "#close_btn", function(){
+		$("#uploadfile").replaceWith($("#uploadfile").clone(true));
+		$("#uploadfile").val("");
+		$("#file-name").text("선택된 파일 없음");
+		$("#close_btn").css("display", "none");
+	}); 
 	
 </script>
 </head>
@@ -175,8 +206,13 @@ a {
 					<input type="text" name="username" id="title" value="${sessionScope.loginUser.id}" readonly="readonly">
 					
 					
-						<div><input type="file" name="uploadfile" id="uploadfile"></div>
-				
+						<div>
+							<input type="file" name="uploadfile" id="uploadfile" style="display: none">
+							<input type="button" class="btn btn-file" value="파일 선택">
+							<span class="files" id="file-name" style="height: 29px; border: none;">선택된 파일 없음</span>
+							<i class="fa fa-close" id="close_btn" style="display: none"></i>
+						</div>
+							
 					<button id="btn-2">등록</button>
 				</form>
 			</div>

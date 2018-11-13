@@ -33,6 +33,19 @@ public class blogDTO {
 
 
 
+	public blogDTO(int bno, String title, String content, String writer, String filename, int filesize) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.filename = filename;
+		this.filesize = filesize;
+	}
+
+
+
+
 	public blogDTO(int bno, String title, String content, String writer, Date regdate, int viewcnt, int replycnt,
 			int goodcnt, String filename, int filesize) {
 		super();

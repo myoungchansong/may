@@ -15,6 +15,7 @@ import com.may.action.Constructbizpoll;
 import com.may.action.blogAction;
 import com.may.action.blogDetailAction;
 import com.may.action.blogSearchAction;
+import com.may.action.blogupadateplayAction;
 import com.may.action.bloguptaeAction;
 import com.may.action.blogviewcntAction;
 import com.may.action.downloadAction;
@@ -149,7 +150,10 @@ public class BizpollFrontController extends HttpServlet {
 		} else if (command.equals("/blogupdate.bizpoll")) {
 			action = new bloguptaeAction();
 			forward = action.excute(request, response);
-		}
+		} else if (command.equals("/blogupadateplay.bizpoll")) {
+			action = new blogupadateplayAction();
+			forward = action.excute(request, response);
+		} 
 		
 		
 		// 공통 분기 작업(페이지 이동)
