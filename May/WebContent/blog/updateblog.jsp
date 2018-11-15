@@ -150,6 +150,8 @@ a {
 			$("#err_check").css("display", "block");
 			return false;
 		}
+		var nowfile = $("#file-name").text();
+		$("#now-file-name").val(nowfile);
 		$("#frm_bin").submit();
 	});
 
@@ -158,11 +160,40 @@ a {
 		
 	});
 	
+	
  	$(document).on("change", "#uploadfile", function(){
-		var filename = this.files[0].name;
-		$("#file-name").text(filename);
-		$("#close_btn").css("display", "block");
+		var filesize= $(this)[0].files;
+		alert(filesize);
+		if(filesize.length < 1){
+			$("#file-name").text("선택된 파일 없음");
+			$("#close_btn").css("display", "block");
+		} else{
+			/*  첨부파일이 있다면 첨부파일의 이름과 사이즈를 불러옴 */
+			var filename =this.files[0].name;
+			var size =this.files[0].size;
+			
+		/* 	var size = this.files[0].size; */
+			var maxSize = 10 * 1024 *1024;
+		}
+		
+		if(size > maxSize){
+			alert("첨부파일 사이즈는 10mb 이내로 등록 가능합니다");
+			$("#file-name").text("선택된 파일 없음");
+			/* 화명단에서는 input type="file"용량 제한하는 코드없음
+			그래서 경고창은 뜨지만 실제 10mb 넘는파일이 들어가 있음
+			반드시 초기화를 시켜서 지워줄 것!! 안그러면 action단에서 에러 발생*/
+			$("#uploadfile").val("");
+			$("#now-file-size").val(0);
+		} else { /* 첨부 가능  */
+			$("#now-file-size").val(size);
+			$("#file-name").text(filename);
+			$("#close_btn").css("display", "block");
+		}
+		
+		
 	});
+ 	
+ 	
 	 $(document).on("click", "#close_btn", function(){
 		$("#uploadfile").replaceWith($("#uploadfile").clone(true));
 		$("#uploadfile").val("");
@@ -218,8 +249,10 @@ a {
 							
 							
 							<input type="hidden" id="bno" name="bno" value="${blogview.bno}">
-							<input type="hidden" id="post-file-name" name="post-file-name" value="${blogview.filename}">
-							<input type="hidden" id="post-file-name" name="post-file-size" value="${blogview.filesize}">
+						<%-- 	<input type="hidden" id="post-file-name" name="post-file-name" value="${blogview.filename}">
+							<input type="hidden" id="post-file-size" name="post-file-size" value="${blogview.filesize}"> --%>
+								<input type="hidden" name="now-file-name" id="now-file-name">
+								<input type="hidden" name="now-file-size" id="now-file-name" v>
 						</div>
 				
 					<button id="btn-2">수정하기</button>

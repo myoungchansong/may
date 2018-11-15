@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
 import org.json.simple.JSONObject;
 
 import com.may.dao.MayMemberDAO;
@@ -17,7 +16,6 @@ public class memberdeleteplayAction implements Action{
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url ="";
 		HttpSession session =request.getSession();
 		String userid = request.getParameter("id");
 		String userpw = request.getParameter("pw");

@@ -358,8 +358,7 @@ select {
 
 		<section>
 
-			<form action="memberpwplay.bizpoll" method="POST" name="frm_mem"
-				id="frm_mem">
+			<form action="memberpwplay.bizpoll" method="POST" name="frm_mem"id="frm_mem">
 				<!-- name값과 id값은 똑같이 해주는게 좋다  -->
 				
 				<div id="insert_pw" class="insert_div">

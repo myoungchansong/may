@@ -15,9 +15,12 @@ import com.may.action.Constructbizpoll;
 import com.may.action.blogAction;
 import com.may.action.blogDetailAction;
 import com.may.action.blogSearchAction;
+import com.may.action.blogdeleteAction;
+import com.may.action.blogdeleteplayAction;
 import com.may.action.blogupadateplayAction;
 import com.may.action.bloguptaeAction;
 import com.may.action.blogviewcntAction;
+import com.may.action.commentlistAction;
 import com.may.action.downloadAction;
 import com.may.action.galleryAction;
 import com.may.action.IdCheckAction;
@@ -36,6 +39,8 @@ import com.may.action.memberdeleteAction;
 import com.may.action.memberdeleteplayAction;
 import com.may.action.mgAction;
 import com.may.action.mgplayAction;
+import com.may.action.replyDeleteAction;
+import com.may.action.replyinsertAction;
 import com.may.action.updateAction;
 
 /**
@@ -153,7 +158,23 @@ public class BizpollFrontController extends HttpServlet {
 		} else if (command.equals("/blogupadateplay.bizpoll")) {
 			action = new blogupadateplayAction();
 			forward = action.excute(request, response);
-		} 
+		} else if (command.equals("/blogupadateplay.bizpoll")) {
+			action = new blogdeleteAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/blogdelete.bizpoll")) {
+			action = new blogdeleteplayAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/commentlist.bizpoll")) {
+			action = new commentlistAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/replyDelet.bizpoll")) {
+			action = new replyDeleteAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/replyinsert.bizpoll")) {
+			action = new replyinsertAction();
+			forward = action.excute(request, response);
+		}
+		
 		
 		
 		// 공통 분기 작업(페이지 이동)

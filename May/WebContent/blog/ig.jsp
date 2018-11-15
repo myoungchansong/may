@@ -142,22 +142,20 @@
 	border-radius: 50%;
 	}
 	#name {
-	position:absolute;
+	font-size: 5px;
 	
 	font-weight: bold;
 	}
 	#time {
 	position:relative;
 	font-size: 10px;
-	right: -80px;
-	top: -12px;
 	}
 	#reply{
 		width: 400px;
 		height: 60px;
 		position: relative;
-		top: 15px;
-		left: -130px;
+		top: 20px;
+		left: -100px;
 		font-size:12px;
 	}
 	
@@ -235,8 +233,70 @@
 		
 		$(document).on("click", "#blogupdate", function(){
 			location.href="blogupdate.bizpoll?bno=${blogview.bno}"
-			
 		});
+		$(document).on("click", "#modal_btn", function(){
+			location.href="blogdelete.bizpoll"
+		});
+		
+		$(document).ready(function(){
+			comment_list()
+		});
+		
+		function comment_list(){
+			$.ajax({
+				type: "post",
+				url: "commentlist.bizpoll",
+				data: "bno=${blogview.bno}",
+				success: function(result){
+					$("#commentList").html(result);
+				}
+			});
+		}
+		
+		
+		
+		
+		
+		$(document).on("click", "#del_btn", function(){
+			var rno = $(this).attr("data_num");
+			$.ajax({
+				type: "post",
+				url:"replyDelet.bizpoll", 
+				data: "rno="+rno,/* 데이터 보내기  */
+				success: function(result){
+					alert("succese");
+					comment_list();
+				},
+				error: function(){
+					alert("System error");
+				}
+				
+			});
+		});
+		
+		
+		
+		
+		$(document).on("click", "#btn_input1", function(){
+			var user = "${sessionScope.loginUser.id}";
+			var keyword = $("#keywordInput").val();
+			var bno =$("#bno").val();
+			
+			$.ajax({
+				type: "post",
+				url:"replyinsert.bizpoll", 
+				data: "bno="+bno+"&user="+user+"&keyword="+keyword,/* 데이터 보내기  */
+				success: function(result){
+					
+					comment_list();
+				},
+				error: function(){
+					alert("System error");
+				}
+				
+			});
+		});
+		
 </script>
 
 
@@ -270,9 +330,9 @@
 						<div id="share">
 							<button class="btn4">share</button>
 						</div>
+			
 					</div>
 				</div>
-			
 			
 			
 			
@@ -280,29 +340,45 @@
 			
 			
 			<div id="reply_war">
+				<div id="commentList">
+				</div>
+		<%-- 	<span>댓글 ${replyList.size()}</span> --%>
+			<%-- <c:if test="${replyList.size()} == 0">
+				등록된 댓글이 없습니다 
+			</c:if>
 				<div id ="reply_div">
+			<c:forEach items="${replyList}" var="replyview">
 					<div id="rad">
 						<img src="img/011.jpg" id="rad_img">
-						<span id="name">${blogview.writer}</span> 
-						<span id="time">${blogview.regdate}</span>
+						<span id="name">${replyview.writer}</span> 
+						<span id="time">작성일:<fmt:formatDate pattern="HH:mm:ss" value="${replyview.regdate}"/></span>
 						
-						<span id="reply">내용</span>
+						<span id="reply">${replyview.content}</span>
 					</div>
-				</div>
-				
+			</c:forEach>
+				</div> --%>
+			
+			
 		<c:choose>
 			<c:when test="${empty sessionScope.loginUser}">
 				<!-- 로그인 안됐을때  -->
 				<input type="text" name="keyword" id="keywordInput" readonly="readonly">
-				<button id="btn_input1">댓글달기</button>
 				<span id="er">로그인 후 사용 가능합니다 </span>
 			</c:when>
 			<c:otherwise>
 				<!--로그인 됬을때  -->
 		<div id="serch_war">
 			<div id="reply_insert">
-				<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}" placeholder="">
-				<button id="btn_input1">한줄평남기기</button>
+			
+			
+				
+				
+				<%-- <div>작성자 <input type="text" name="user" id="user" value="${sessionScope.loginUser.id}" readonly="readonly"></div> --%>
+				<input type="text" name="keywordInput" id="keywordInput" value="${cri.keyword}" >
+				<button id="btn_input1">댓글달기</button>
+				<input type="hidden" name="bno" id="bno" value="${blogview.bno}">
+				
+				
 			</div>	
 		</div>
 			</c:otherwise>
@@ -331,16 +407,16 @@
 										<h4 class="modal-title">게시글 삭제</h4>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
-
+				
 									<!-- Modal body -->
 									<div class="modal-body">게시글을 삭제하시겠습니까?</div>
 
 									<!-- Modal footer -->
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal" style="background-color: blue">삭제</button>
+											data-dismiss="modal" style="background-color: blue" id="modal_btn">삭제</button>
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">취소</button>
+											data-dismiss="modal" >취소</button>
 									</div>
 
 								</div>
