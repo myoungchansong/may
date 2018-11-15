@@ -242,6 +242,7 @@
 			comment_list()
 		});
 		
+		
 		function comment_list(){
 			$.ajax({
 				type: "post",

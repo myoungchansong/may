@@ -4,7 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com/may/mybatis/MayMapper.xml">
-
+	
+	
+	
+	
 	<insert id="replyinsert" parameterType="com.may.dto.RepleDTO">
 		INSERT INTO mayreply(rno, content, writer, bno)
 		VALUES(seq_Mayblog_rno.NEXTVAL, #{content}, #{writer}, #{bno})
@@ -33,6 +36,16 @@
 
 
 	<!--blogDAO -->
+	
+	
+	<delete id="blogdelete" parameterType="int">
+		DELETE FROM Mayblog
+		WHERE bno = #{bno}
+	</delete>
+	
+	
+	
+	
 	<update id="blogupdate" parameterType="com.may.dto.blogDTO">
 		UPDATE Mayblog 
 			SET title = #{title},
