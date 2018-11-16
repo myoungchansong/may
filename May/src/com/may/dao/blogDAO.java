@@ -210,4 +210,23 @@ public class blogDAO {
 		
 		return result;
 	}
+	
+	public void blogReplyCntPlus(String bno) {
+		sqlSession = sqlSessionFactory.openSession();
+		System.out.println("==================DaoBno"+bno);
+		
+		try {
+			
+			sqlSession.delete("blogReplyCntPlus", bno);
+			sqlSession.commit();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+	}
 }

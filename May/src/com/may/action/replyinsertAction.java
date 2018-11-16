@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.may.dao.RepleDAO;
+import com.may.dao.blogDAO;
 import com.may.dto.RepleDTO;
+import com.may.dto.blogDTO;
 
 public class replyinsertAction implements Action{
 
@@ -30,8 +32,9 @@ public class replyinsertAction implements Action{
 		
 		RepleDTO rDto = new RepleDTO(content,user,bno);
 		rDao.replyinsert(rDto);
-//		여가에다가 댓글카운트 1증가하는 코드작성
-		
+//		여기에다가 댓글카운트 1증가하는 코드작성
+		blogDAO bDao = blogDAO.getInstance();
+		bDao.blogReplyCntPlus(bno1);
 		
 		return null;
 	}

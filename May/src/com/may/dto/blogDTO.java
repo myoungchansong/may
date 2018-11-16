@@ -147,6 +147,9 @@ public class blogDTO {
 				+ regdate + ", viewcnt=" + viewcnt + ", replycnt=" + replycnt + ", goodcnt=" + goodcnt + ", filename="
 				+ filename + ", filesize=" + filesize + "]";
 	}
-	
+
+
+
+
 	
 }
