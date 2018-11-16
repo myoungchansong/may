@@ -6,7 +6,7 @@
 <mapper namespace="com/may/mybatis/MayMapper.xml">
 	
 	
-	
+	<!--  repledao-->
 	
 	<insert id="replyinsert" parameterType="com.may.dto.RepleDTO">
 		INSERT INTO mayreply(rno, content, writer, bno)
@@ -27,7 +27,7 @@
 
 
 	
-	<!--  repledao-->
+	
 	<select id="replyListAll" parameterType="String" resultType="com.may.dto.RepleDTO">
 		SELECT * FROM mayreply
 		WHERE bno = #{bno}
@@ -38,7 +38,7 @@
 	<!--blogDAO -->
 	
 	
-	<delete id="blogdelete" parameterType="int">
+	<delete id="blogdelete" parameterType="String">
 		DELETE FROM Mayblog
 		WHERE bno = #{bno}
 	</delete>
@@ -50,12 +50,12 @@
 		UPDATE Mayblog 
 			SET title = #{title},
 				content = #{content},
-				writer = #{writer},
-			<if test="filename !='no'">
+			<if test="filename != 'no'">
 				filename = #{filename},
-				filesize = #{filesize}
+				filesize = #{filesize},
 			</if>
-			WHERE bno = #{bno} 
+				writer = #{writer}
+				WHERE bno = #{bno} 
 	</update>
 	
 	
@@ -140,9 +140,24 @@
 	                       <![CDATA[AND	writer LIKE '%'||#{keyword}||'%']]>
 	                        </if>
 	                        
+	                        <if test='code == "new"'>
+	                        	 ORDER BY bno DESC
+	                        </if>
+	                        
+	                         <if test='code == "good"'>
+	                        	 ORDER BY goodcnt DESC, bno DESC
+	                        </if>
+	                        
+	                         <if test='code == "reply"'>
+	                        	 ORDER BY replycnt DESC, bno DESC
+	                        </if>
+	                        
+	                         <if test='code == "cnt"'>
+	                        	 ORDER BY viewcnt DESC, bno DESC
+	                        </if>
 	                        
 	                        
-	         <![CDATA[      ORDER BY bno DESC
+	         <![CDATA[     
 	                        ) a
 	            )
 			WHERE rnum BETWEEN #{pageStart} AND #{perPageNum}

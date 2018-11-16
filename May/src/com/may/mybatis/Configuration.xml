@@ -23,15 +23,10 @@
 						<property name="url" value="${url}"/>
 						<property name="username" value="${username}"/>
 						<property name="password" value="${pass}"/>
-						<!--db.properties username과 pass 값이 같아야함   -->
 						<property name="poolMaximumActiveConnections" value="20"/>
-						<!-- 활성화된 최대 커넥션의 갯수-->
 						<property name="poolMaximumIdleConnections" value="20"/>
-						<!-- 유효상태에서 최대 커넥션의 갯수 -->
 						<property name="poolMaximumCheckoutTime" value="20000"/>
-						<!-- 최대 커넥션 획득시간 -->
 						<property name="poolTimeToWait" value="15000"/>
-						<!-- pool이 비정상적으로 긴경우 커넥션을 다시 얻을려는 셋팅 -->
 					</dataSource>
 			</environment>
 		</environments>

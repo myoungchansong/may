@@ -15,17 +15,23 @@ public class replyinsertAction implements Action{
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String user =request.getParameter("user");
-		String content =request.getParameter("keyword");
+		String content =request.getParameter("keywordInput");
 		String bno1 = request.getParameter("bno");
-		System.out.println("user : "+user);
-		System.out.println("content : "+content);
-		System.out.println("bno : "+bno1);
 		
-		int bno =Integer.parseInt(bno1);
+	
+		System.out.println("user :"+user);
+		System.out.println("content :"+content);
+		System.out.println("bno1 :"+bno1);
 		
+		
+		int bno =Integer.parseInt(bno1); 
+		System.out.println("bno : "+ bno);
 		RepleDAO rDao = RepleDAO.getInstance();
+		
 		RepleDTO rDto = new RepleDTO(content,user,bno);
 		rDao.replyinsert(rDto);
+//		여가에다가 댓글카운트 1증가하는 코드작성
+		
 		
 		return null;
 	}

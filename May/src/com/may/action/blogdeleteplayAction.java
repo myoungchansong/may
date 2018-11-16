@@ -20,6 +20,8 @@ public class blogdeleteplayAction implements Action{
 		
 		
 		blogDAO bDao = blogDAO.getInstance();
+//		댓글 다삭제하는거 만들기  파일 삭제 
+		
 		int result = bDao.blogdelete(bno);
 		if(result >0) {
 			System.out.println("삭제 성공");

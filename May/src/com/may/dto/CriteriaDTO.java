@@ -5,7 +5,7 @@ public class CriteriaDTO {
 	private int perPageNum;	// 한페이지 에 보여줄 게시글 수
 	private String keyword;
 	private String flag;
-	
+	private String code; 
 	
 	public CriteriaDTO() {
 		this.page=1;
@@ -18,6 +18,16 @@ public class CriteriaDTO {
 		this.page = page;
 		this.perPageNum = perPageNum;
 		this.keyword = keyword;
+	}
+	
+
+	public CriteriaDTO(int page, int perPageNum, String keyword, String flag, String code) {
+		super();
+		this.page = page;
+		this.perPageNum = perPageNum;
+		this.keyword = keyword;
+		this.flag = flag;
+		this.code = code;
 	}
 
 
@@ -70,14 +80,25 @@ public class CriteriaDTO {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
+	
+
+	public String getCode() {
+		return code;
+	}
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 
 	@Override
 	public String toString() {
 		return "CriteriaDTO [page=" + page + ", perPageNum=" + perPageNum + ", keyword=" + keyword + ", flag=" + flag
-				+ "]";
+				+ ", code=" + code + "]";
 	}
-	
+
+
 	
 	
 	

@@ -37,6 +37,14 @@ public class blogAction implements Action {
 		criDto.setPage(page);
 		
 //		====================================================================
+		String code = "new";
+		
+		if(request.getParameter("key") !=null) {
+			code = request.getParameter("key");
+		}
+		criDto.setCode(code);
+		request.setAttribute("code", code);
+		
 		
 		String flag =null;
 		String keyword = null;
@@ -77,7 +85,7 @@ public class blogAction implements Action {
 		request.setAttribute("pageMaker", pageMaker);
 		
 		
-		
+	
 		
 		
 		

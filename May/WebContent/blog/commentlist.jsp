@@ -37,5 +37,31 @@
 					</div>
 			</c:forEach>
 				</div>
+				
+				<c:choose>
+			<c:when test="${empty sessionScope.loginUser}">
+				<!-- 로그인 안됐을때  -->
+				<input type="text" name="keyword" id="keywordInput" readonly="readonly">
+				<span id="er">로그인 후 사용 가능합니다 </span>
+			</c:when>
+			<c:otherwise>
+				<!--로그인 됬을때  -->
+		<div id="serch_war">
+			<div id="reply_insert">
+			
+			<form method="post" name="frm_reply" id="frm_reply">
+				<!-- blogviewcnt.bizpoll 으로 가는 이유 sessionscope가 잘못된거같음  -->
+				<input type="text" name="user" id="user" value="${sessionScope.loginUser.id}">
+				<input type="text" name="keywordInput" id="keywordInput" value="${cri.keyword}" >
+				<div id="err" style="display: none; color: red; font-size: 10px;">내용을 입력해주세요</div>
+				<input type="hidden" name="bno" id="bno">
+				<button id="btn_input3">댓글달기</button>
+				
+			</form>	
+			
+			</div>	
+		</div>
+			</c:otherwise>
+		</c:choose>
 </body>
 </html>

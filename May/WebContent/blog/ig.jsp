@@ -180,7 +180,7 @@
 		border: none;
 		border-bottom: 1px solid gray;
 	}
-	#btn_input1{
+	#btn_input3{
 		width: 100px;
 		height: 28px;
 		display: inline-block;
@@ -235,7 +235,7 @@
 			location.href="blogupdate.bizpoll?bno=${blogview.bno}"
 		});
 		$(document).on("click", "#modal_btn", function(){
-			location.href="blogdelete.bizpoll"
+			location.href="blogdelete.bizpoll?bno=${blogview.bno}"
 		});
 		
 		$(document).ready(function(){
@@ -278,24 +278,37 @@
 		
 		
 		
-		$(document).on("click", "#btn_input1", function(){
-			var user = "${sessionScope.loginUser.id}";
+		$(document).on("click", "#btn_input3", function(){
 			var keyword = $("#keywordInput").val();
-			var bno =$("#bno").val();
-			
-			$.ajax({
-				type: "post",
-				url:"replyinsert.bizpoll", 
-				data: "bno="+bno+"&user="+user+"&keyword="+keyword,/* 데이터 보내기  */
-				success: function(result){
+           
+            
+			if(keyword == ""){
+				alert("댓글을 입력해주세요");
+				$("#keywordInput").focus();
+				$("#err").css("dlsplay","block");
+				return false;
+			}else{
+				var bno =${blogview.bno};
+				$("#bno").val(bno);
+	            
+			}
+				$.ajax({
+					type:"POST",
+					url:"replyinsert.bizpoll",
+					data: $("#frm_reply").serialize(),
+					/*  FROM태그의 직렬화*/
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					success: function(result){
+						
+						comment_list();
+						 $("#keywordInput").val("");
+						
+					},
+					error: function(){
+						alert("System error");
+					}
 					
-					comment_list();
-				},
-				error: function(){
-					alert("System error");
-				}
-				
-			});
+				});
 		});
 		
 </script>
@@ -330,6 +343,8 @@
 						</div>
 						<div id="share">
 							<button class="btn4">share</button>
+							<!--버튼클릭시 goocnt1씩 증가하는 코드 게시글 하나마다 아이디 추천은 1개만 가능 하게   -->
+							
 						</div>
 			
 					</div>
@@ -360,7 +375,7 @@
 				</div> --%>
 			
 			
-		<c:choose>
+		<%-- <c:choose>
 			<c:when test="${empty sessionScope.loginUser}">
 				<!-- 로그인 안됐을때  -->
 				<input type="text" name="keyword" id="keywordInput" readonly="readonly">
@@ -371,10 +386,8 @@
 		<div id="serch_war">
 			<div id="reply_insert">
 			
-			
 				
-				
-				<%-- <div>작성자 <input type="text" name="user" id="user" value="${sessionScope.loginUser.id}" readonly="readonly"></div> --%>
+				<div>작성자 <input type="text" name="user" id="user" value="${sessionScope.loginUser.id}" readonly="readonly"></div>
 				<input type="text" name="keywordInput" id="keywordInput" value="${cri.keyword}" >
 				<button id="btn_input1">댓글달기</button>
 				<input type="hidden" name="bno" id="bno" value="${blogview.bno}">
@@ -383,7 +396,7 @@
 			</div>	
 		</div>
 			</c:otherwise>
-		</c:choose>		
+		</c:choose>	 --%>	
 				
 		
 		

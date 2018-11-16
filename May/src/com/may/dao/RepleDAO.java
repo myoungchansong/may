@@ -27,9 +27,8 @@ public class RepleDAO {
 		System.out.println("=====>replybno"+bno);
 		sqlSession = sqlSessionFactory.openSession();
 		try {
-			System.out.println("===============================dao11");
 			list = sqlSession.selectList("replyListAll", bno);
-			System.out.println("===============================dao2");
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -56,7 +55,7 @@ public class RepleDAO {
 		}
 		
 	}
-	public void replyinsert(RepleDTO rDto ){
+	public void replyinsert(RepleDTO rDto){
 		sqlSession = sqlSessionFactory.openSession();
 		try {
 			

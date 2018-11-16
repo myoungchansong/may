@@ -5,6 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -144,7 +145,7 @@ a{
 
 
 #nav1 {
-	background-color: black;
+	border: 1px solid black;
 	width: 900px;
 	height: 50px;
 	text-align: center;
@@ -253,11 +254,25 @@ section.secl {
 <script type="text/javascript">
 	$(document).ready(function(){
 		
+		var code = $("#code").val();
+		if(code == "new"){
+			$("#orderNew").css("color", "#E71D36").css("font-weight", "bold")
+		} else if(code == "good"){
+			$("#orderGood").css("color", "#E71D36").css("font-weight", "bold")
+		} else if(code == "reply"){
+			$("#orderReply").css("color", "#E71D36").css("font-weight", "bold")
+		} else if(code == "cnt"){
+			$("#orderCnt").css("color", "#E71D36").css("font-weight", "bold")
+		}
+		
+		
 		$("#searchbtn").on("click", function(){
 		var flag = $("#inputGroupSelect01").val();
 		var keyword	= $("#keywordInput").val();
 			location.href="blog.bizpoll?flag="+flag+"&keyword="+keyword;
 		});
+		
+		
 	});
 </script>
 
@@ -322,22 +337,22 @@ section.secl {
 	
 		<div id="nav1">
 			<div class="nav1_div">
-			<p><a>분류▼</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=new" id="orderNew">최신순</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a>최신순</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=good" id="orderGood">추천순</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a>조회순</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=reply" id="orderReply">댓글</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a>댓글</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=cnt" id="orderCnt">조회</a></p>
 			</div>
 			<c:choose>
 				<c:when test="${empty sessionScope.loginUser}">
 					<!-- 로그인 안됐을때  -->
 					<div class="nav1_div">
-						<p><a href="login.bizpoll" style="color: white;">등록</a></p>
+						<p><a href="login.bizpoll">등록</a></p>
 					</div>	
 				</c:when>
 				<c:otherwise>
@@ -397,11 +412,12 @@ section.secl {
 						
 						<div class="con-gr box">${bDto.content}</div>
 						<div class="gam-gr box">
+							<input type="hidden" id="code" value="${code}">
 							<span>추천 ${bDto.goodcnt}</span>
 							<span>댓글 ${bDto.replycnt}</span> 
 							<span>조회수  ${bDto.viewcnt}</span>
 							<span>첨부 파일 
-								<c:if test="${bDto.filesize > 0}">
+								<c:if test="${bDto.filename != null}">
 									<i class ="fa fa-floppy-o"></i>
 								</c:if>
 							</span>
@@ -460,7 +476,7 @@ section.secl {
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li 
 					<c:out value="${pageMaker.criDto.page == idx? 'class=active1':''}"/>>
-					<a href="blog.bizpoll?page=${idx}&flag=${flag}&keyword=${keyword}">${idx}</a>
+					<a href="blog.bizpoll?page=${idx}&flag=${flag}&keyword=${keyword}&key=${code}">${idx}</a>
 				</li>
 			</c:forEach>	
 			

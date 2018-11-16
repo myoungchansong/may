@@ -21,7 +21,7 @@ public class replyDeleteAction implements Action{
 		
 		RepleDAO rDao = RepleDAO.getInstance();
 		rDao.replydelete(rno);
-		
+//		댓글 삭제시  댓글카운트 1증감 하는 코드작성
 		
 		
 		return null;

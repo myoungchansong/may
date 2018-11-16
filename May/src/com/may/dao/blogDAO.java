@@ -194,10 +194,10 @@ public class blogDAO {
 		int result =0;
 		sqlSession = sqlSessionFactory.openSession();
 		System.out.println("==================DaoBno"+bno);
+		
 		try {
-			
 //										값을 하나밖에 못보낸다 
-			result = sqlSession.update("blogdelete", bno);
+			result = sqlSession.delete("blogdelete", bno);
 			System.out.println("====================="+result);
 			sqlSession.commit();
 			
