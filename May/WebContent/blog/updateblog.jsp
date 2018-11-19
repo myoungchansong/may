@@ -252,7 +252,7 @@ a {
 						<%-- 	<input type="hidden" id="post-file-name" name="post-file-name" value="${blogview.filename}">
 							<input type="hidden" id="post-file-size" name="post-file-size" value="${blogview.filesize}"> --%>
 								<input type="hidden" name="now-file-name" id="now-file-name">
-								<input type="hidden" name="now-file-size" id="now-file-name">
+								<input type="hidden" name="now-file-size" id="now-file-size">
 						</div>
 				
 					<button id="btn-2">수정하기</button>

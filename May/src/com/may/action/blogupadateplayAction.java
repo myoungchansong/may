@@ -118,7 +118,7 @@ public class blogupadateplayAction implements Action{
 			filename = "no";
 		}
 		
-		
+		System.out.println("========filesize"+filesize);
 		int bno = Integer.parseInt(bno1);
 		bDto = new blogDTO(bno, title, content, loginuser, filename, filesize);
 		int result = bDao.blogupdate(bDto);

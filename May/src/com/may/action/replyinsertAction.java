@@ -31,10 +31,11 @@ public class replyinsertAction implements Action{
 		RepleDAO rDao = RepleDAO.getInstance();
 		
 		RepleDTO rDto = new RepleDTO(content,user,bno);
-		rDao.replyinsert(rDto);
+		int result = rDao.replyinsert(rDto);
 //		여기에다가 댓글카운트 1증가하는 코드작성
-		blogDAO bDao = blogDAO.getInstance();
-		bDao.blogReplyCntPlus(bno1);
+			
+			rDao.blogReplyCntPlus(bno1);
+	
 		
 		return null;
 	}

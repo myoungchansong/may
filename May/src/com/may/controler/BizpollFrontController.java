@@ -17,6 +17,7 @@ import com.may.action.blogDetailAction;
 import com.may.action.blogSearchAction;
 import com.may.action.blogdeleteAction;
 import com.may.action.blogdeleteplayAction;
+import com.may.action.bloggoodcntAction;
 import com.may.action.blogupadateplayAction;
 import com.may.action.bloguptaeAction;
 import com.may.action.blogviewcntAction;
@@ -41,6 +42,8 @@ import com.may.action.mgAction;
 import com.may.action.mgplayAction;
 import com.may.action.replyDeleteAction;
 import com.may.action.replyinsertAction;
+import com.may.action.replyupdateAction;
+import com.may.action.replyupdateformAction;
 import com.may.action.updateAction;
 
 /**
@@ -173,8 +176,16 @@ public class BizpollFrontController extends HttpServlet {
 		} else if (command.equals("/replyinsert.bizpoll")) {
 			action = new replyinsertAction();
 			forward = action.excute(request, response);
-		}
-		
+		} else if (command.equals("/replyupdate.bizpoll")) {
+			action = new replyupdateAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/replyupdateform.bizpoll")) {
+			action = new replyupdateformAction();
+			forward = action.excute(request, response);
+		} else if (command.equals("/bloggoodcnt.bizpoll")) {
+			action = new bloggoodcntAction();
+			forward = action.excute(request, response);
+		} 
 		
 		
 		// 공통 분기 작업(페이지 이동)

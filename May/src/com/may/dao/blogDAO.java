@@ -210,16 +210,20 @@ public class blogDAO {
 		
 		return result;
 	}
-	
-	public void blogReplyCntPlus(String bno) {
+	public void goodcnt(String bno) {
+		int result =0;
 		sqlSession = sqlSessionFactory.openSession();
 		System.out.println("==================DaoBno"+bno);
 		
 		try {
-			
-			sqlSession.delete("blogReplyCntPlus", bno);
+//										값을 하나밖에 못보낸다 
+		result = sqlSession.update("goodcnt", bno);
 			sqlSession.commit();
-			
+		if(result >0) {
+			System.out.println("goodcnt +1");
+		} else {
+			System.out.println("실패");
+		}
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -228,5 +232,10 @@ public class blogDAO {
 		}
 		
 		
+		
+		
+		
+		
 	}
+	
 }

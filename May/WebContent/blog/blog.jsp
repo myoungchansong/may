@@ -246,8 +246,47 @@ section.secl {
 		line-height: 40px;
 		width: 0px;
 	}
-
-
+	
+	#searchwrp{
+		width: 900px;
+		height: 70px;
+		position: relative;
+		top: 30px;
+		display: block;
+		border: 1px solid black;
+		font-weight: bold;
+	}
+	#inputGroupSelect01{
+		width: 200px;
+		height: 70px;
+		background-color: white;
+		float: left;
+		border: none;
+	}
+	#keywordInput{
+		width: 598px;
+		height: 70px;
+		border: none;
+		border-left:1px solid black;
+		border-right: 1px solid black;
+	}
+	#searchbtn{
+		width: 180px;
+		height: 70px;
+		float: right;
+		border: none;
+		background: white;
+	}
+	#ser{
+		font-weight: blod;
+		width: 450px;
+		font-size: 15px;
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 5px;
+	
+	}
 </style>
 </head>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
@@ -271,8 +310,6 @@ section.secl {
 		var keyword	= $("#keywordInput").val();
 			location.href="blog.bizpoll?flag="+flag+"&keyword="+keyword;
 		});
-		
-		
 	});
 </script>
 
@@ -293,42 +330,49 @@ section.secl {
 		</div>
 	</div>
 		<div id="mypage">
-			<div class='box-body search-bar '>
+			<div id="searchwrp">
+			
+			<select name="searchType" class="custom-select"
+				id="inputGroupSelect01" style="width: 120px;">
+	
+				<option value="1"
+					<c:out value="${cri.searchType eq 't'?'selected' :''}"/>>
+					제목</option>
+					
+					
+				<option value="2"
+					<c:out value="${cri.searchType eq 'c'?'selected' :''}"/>>
+					내용</option>
+					
+					
+				<option value="3"
+					<c:out value="${cri.searchType ==  null?'selected' :''}"/>>
+					제목+내용</option>
+	
+	
+				<option value="4"
+					<c:out value="${cri.searchType eq 'w'?'selected' :''}"/>>
+					작성자</option>
+	
+	
+	
+			</select> 
+			<input type="text" name="keyword" id="keywordInput"value="${cri.keyword }" placeholder="검색어를 입력하세요">
+	
+			<button id="searchbtn" class="btn btn-warning">검색</button>
+			
+			<c:if test="${!empty keyword}">
+				<div id="ser">
+					<p>"${keyword}"관련검색어 ${pageMaker.totalCount}건이 검색되엇습니다</p>
+				</div>
+			</c:if>
 
-		<select name="searchType" class="custom-select"
-			id="inputGroupSelect01" style="width: 120px;">
-
-			<option value="1"
-				<c:out value="${cri.searchType eq 't'?'selected' :''}"/>>
-				제목</option>
-				
-				
-			<option value="2"
-				<c:out value="${cri.searchType eq 'c'?'selected' :''}"/>>
-				내용</option>
-				
-				
-			<option value="3"
-				<c:out value="${cri.searchType ==  null?'selected' :''}"/>>
-				제목+내용</option>
-
-
-			<option value="4"
-				<c:out value="${cri.searchType eq 'w'?'selected' :''}"/>>
-				작성자</option>
-
-
-
-		</select> <input type="text" name="keyword" id="keywordInput"
-			value="${cri.keyword }" placeholder="검색어를 입력하세요">
-
-		<button id="searchbtn" class="btn btn-warning">검색</button>
-
-		<button id="newbtn" class="btn btn-info">질문하기</button>
-		<div>
-			${keyword}관련 검색어  ${pageMaker.totalCount}건이 검색되엇습니다
 		</div>
-	</div>
+		
+		
+		
+		
+		
 			<!-- <p>로그아웃 상태입니다.<br>
 			로그인하여 새글을 확인해보세요.</p> -->
 		</div>
@@ -337,16 +381,16 @@ section.secl {
 	
 		<div id="nav1">
 			<div class="nav1_div">
-				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=new" id="orderNew">최신순</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=new" id="orderNew" class="order_nav">최신순</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=good" id="orderGood">추천순</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=good" id="orderGood" class="order_nav">추천순</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=reply" id="orderReply">댓글</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=reply" id="orderReply" class="order_nav">댓글</a></p>
 			</div>
 			<div class="nav1_div">
-				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=cnt" id="orderCnt">조회</a></p>
+				<p><a href="blog.bizpoll?flag=${flag}&keyword=${keyword}&key=cnt" id="orderCnt" class="order_nav">조회</a></p>
 			</div>
 			<c:choose>
 				<c:when test="${empty sessionScope.loginUser}">

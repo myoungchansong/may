@@ -7,11 +7,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	button {
+
+
+	#upe{
+	position:relative;
+	left: 330px;
+	top: -44px;
+	font-size: 11px;
+	color: black;
+	}
+	#del_btn{
 		border: none;
 		background: white;
-		position: relative;
-		right: -100px;
 	}
 </style>
 </head>
@@ -30,9 +37,10 @@
 						<span id="reply">${replyview.content}</span>
 						
 						<c:if test="${sessionScope.loginUser.id == replyview.writer}">
-						
 							<div id="del"><button id="del_btn" data_num="${replyview.rno}">삭제</button></div>
-						
+							<%-- <div id="update"><button id="update_btn" data_num="${replyview.rno}">수정</button></div> --%>
+							<a href="#" onclick="cmUpdateOpen(${replyview.rno})"id="upe">수정</a><br> 
+							
 						</c:if>
 					</div>
 			</c:forEach>
@@ -51,7 +59,7 @@
 			
 			<form method="post" name="frm_reply" id="frm_reply">
 				<!-- blogviewcnt.bizpoll 으로 가는 이유 sessionscope가 잘못된거같음  -->
-				<input type="text" name="user" id="user" value="${sessionScope.loginUser.id}">
+				<input type="hidden" name="user" id="user" value="${sessionScope.loginUser.id}">
 				<input type="text" name="keywordInput" id="keywordInput" value="${cri.keyword}" >
 				<div id="err" style="display: none; color: red; font-size: 10px;">내용을 입력해주세요</div>
 				<input type="hidden" name="bno" id="bno">

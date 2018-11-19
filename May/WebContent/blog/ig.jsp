@@ -103,8 +103,23 @@
 	
 	#lingk{
 		width: 400px;
-		height: 60px;
-		border-top: 1px solid gray;
+		height: 54px;
+		display: block;
+		border-bottom: 1px solid black;
+	}
+	#lingk button{
+		position:relative;
+		float:left;
+		width: 100px;
+		height: 100%;
+		padding: 0px 0px;
+		border-right: 1px solid black;
+		
+		color: black;
+		margin: 0px 0px;
+		margin: 0px 0px;
+		border-radius:0%;
+		background: white;
 	}
 	
 	#photo_border{
@@ -162,12 +177,11 @@
 	#serch_war{
 		width: 400px;
 		height: 60px;
-		margin-bottom: 10px;
 		border: 1px solid gray;
 	}
 	#reply_div{
 		width: 400px;
-		height: 310px;
+		height: 320px;
 		
 	}
 	#reply_insert{
@@ -198,30 +212,24 @@
 		line-height: 10px;
 		float: center;
 	}
-	.btn4 {
-	
-    width: 80px;
-	height: 40px;
-	background-color:#f8585b;
-   	border: none;
-    color:white;
-    padding: 15px 0;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px;
-    cursor: pointer;
-	border-radius:10px;
-	
-	line-height: 10px;
-	}
 	.container{
 		display: inline;
 		padding: 0px;
 	}
 	
-
+	#del_btn{
+		position: relative;
+		left: 360px;
+		top: -20px;
+		font-size: 11px;
+			
+	}
+	#goodbutton{
+		width: 50px;
+		background-color: white;
+		line-height: 30px;
+		border: none;
+	}
 </style>
 <script type="text/javascript" src="<%=path%>/SmartEditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -234,14 +242,25 @@
 		$(document).on("click", "#blogupdate", function(){
 			location.href="blogupdate.bizpoll?bno=${blogview.bno}"
 		});
+		
 		$(document).on("click", "#modal_btn", function(){
-			location.href="blogdelete.bizpoll?bno=${blogview.bno}"
+			location.href="blogdelete.bizpoll?bno=${blogview.bno}&filename=${blogview.filename}"
+		});
+		
+		$(document).on("click", "#blog_list", function(){
+			location.href="blog.bizpoll";
 		});
 		
 		$(document).ready(function(){
-			comment_list()
+			comment_list();
 		});
 		
+		 function cmUpdateOpen(rno){
+	            window.name = "parentForm";
+	            window.open("replyupdate.bizpoll?rno="+rno,
+	                        "updateForm", "width=570, height=350, resizable = no, scrollbars = no");
+	        }
+
 		
 		function comment_list(){
 			$.ajax({
@@ -260,10 +279,11 @@
 		
 		$(document).on("click", "#del_btn", function(){
 			var rno = $(this).attr("data_num");
+			var bno =${blogview.bno};
 			$.ajax({
 				type: "post",
 				url:"replyDelet.bizpoll", 
-				data: "rno="+rno,/* 데이터 보내기  */
+				data: "rno="+rno+"&bno="+bno,/* 데이터 보내기  */
 				success: function(result){
 					alert("succese");
 					comment_list();
@@ -274,6 +294,41 @@
 				
 			});
 		});
+		
+		
+		
+		
+		/*  ================추천======= */
+		$(document).on("click", "#goodbutton", function(){
+			
+			var bno =${blogview.bno};
+			alert(bno);
+			$.ajax({
+				type: "post",
+				url:"bloggoodcnt.bizpoll", 
+				data: "bno="+bno,/* 데이터 보내기  */
+				success: function(result){
+					alert("succese");
+					comment_list();
+				},
+				error: function(){
+					alert("System error");
+				}
+				
+			});
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -311,6 +366,9 @@
 				});
 		});
 		
+		
+		
+
 </script>
 
 
@@ -322,6 +380,7 @@
 			<div id="user_box">
 				<div id="user"><p>${blogview.writer}</p></div>
 				<div id="title"><p>${blogview.title}</p></div>
+				
 			</div>
 			
 			
@@ -339,12 +398,7 @@
 							<span>조회수 : ${blogview.viewcnt}</span>
 						</div>
 						<div id="good">
-							<button class="btn4">good</button>
-						</div>
-						<div id="share">
-							<button class="btn4">share</button>
-							<!--버튼클릭시 goocnt1씩 증가하는 코드 게시글 하나마다 아이디 추천은 1개만 가능 하게   -->
-							
+							<button id="goodbutton"><i class ="fa fa-hand-o-up"></i>  ${blogview.goodcnt}</button>
 						</div>
 			
 					</div>
@@ -356,47 +410,9 @@
 			
 			
 			<div id="reply_war">
+			
 				<div id="commentList">
 				</div>
-		<%-- 	<span>댓글 ${replyList.size()}</span> --%>
-			<%-- <c:if test="${replyList.size()} == 0">
-				등록된 댓글이 없습니다 
-			</c:if>
-				<div id ="reply_div">
-			<c:forEach items="${replyList}" var="replyview">
-					<div id="rad">
-						<img src="img/011.jpg" id="rad_img">
-						<span id="name">${replyview.writer}</span> 
-						<span id="time">작성일:<fmt:formatDate pattern="HH:mm:ss" value="${replyview.regdate}"/></span>
-						
-						<span id="reply">${replyview.content}</span>
-					</div>
-			</c:forEach>
-				</div> --%>
-			
-			
-		<%-- <c:choose>
-			<c:when test="${empty sessionScope.loginUser}">
-				<!-- 로그인 안됐을때  -->
-				<input type="text" name="keyword" id="keywordInput" readonly="readonly">
-				<span id="er">로그인 후 사용 가능합니다 </span>
-			</c:when>
-			<c:otherwise>
-				<!--로그인 됬을때  -->
-		<div id="serch_war">
-			<div id="reply_insert">
-			
-				
-				<div>작성자 <input type="text" name="user" id="user" value="${sessionScope.loginUser.id}" readonly="readonly"></div>
-				<input type="text" name="keywordInput" id="keywordInput" value="${cri.keyword}" >
-				<button id="btn_input1">댓글달기</button>
-				<input type="hidden" name="bno" id="bno" value="${blogview.bno}">
-				
-				
-			</div>	
-		</div>
-			</c:otherwise>
-		</c:choose>	 --%>	
 				
 		
 		
@@ -405,11 +421,10 @@
 		<div id="lingk">
 			<c:if test="${sessionScope.loginUser.id == blogview.writer}">
 			<!-- 	<button class="btn4">삭제</button> -->
-				<button class="btn4" id="blogupdate">수정</button>
-					<div class="container">
+				<button  id="blogupdate">수정</button>
 						<!-- Button to Open the Modal -->
 						<button type="button" class="btn btn-primary btn4" data-toggle="modal"
-							data-target="#myModal">삭제</button>
+							data-target="#myModal" style="padding: 0px 0px 0px 0px;">삭제</button>
 
 						<!-- The Modal -->
 						<div class="modal fade" id="myModal">
@@ -437,11 +452,10 @@
 							</div>
 						</div>
 
-					</div>
 					
 				</c:if>
 			<button class="btn4">답변</button>
-			<button class="btn4">목록</button>
+			<button class="btn4" id="blog_list">목록</button>
 		</div>
 			
 		</div>

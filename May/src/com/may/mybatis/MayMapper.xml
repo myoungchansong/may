@@ -4,8 +4,41 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com/may/mybatis/MayMapper.xml">
+	<update id="goodcnt">
+		UPDATE Mayblog 
+			SET goodcnt = goodcnt + 1
+			WHERE bno = #{bno} 
+	
+	</update>
+	
+	<update id="repleupdate" parameterType="com.may.dto.RepleDTO">
+		UPDATE mayreply 
+			SET content = #{content}
+			WHERE rno = #{rno} 
+	</update>
+	
+	<select id="replyselset" parameterType="int" resultType="com.may.dto.RepleDTO">
+		SELECT * FROM mayreply
+		WHERE rno = #{rno}
+	</select>
 	
 	
+	<delete id="blogallreplydelete" parameterType="String">
+		DELETE FROM mayreply
+		WHERE bno = #{bno} 
+	</delete>
+	
+	
+	<update id="blogReplycntminus">
+		UPDATE Mayblog 
+			SET replycnt = replycnt -1
+			WHERE bno = #{bno} 
+	</update>
+	<update id="blogReplyCntPlus">
+		UPDATE Mayblog 
+			SET replycnt = replycnt + 1
+			WHERE bno = #{bno} 
+	</update>
 	<!--  repledao-->
 	
 	<insert id="replyinsert" parameterType="com.may.dto.RepleDTO">

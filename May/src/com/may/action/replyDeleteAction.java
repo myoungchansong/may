@@ -18,11 +18,12 @@ public class replyDeleteAction implements Action{
 		
 		String rno =request.getParameter("rno");
 		System.out.println("============>rno"+rno);
-		
+		String bno1 = request.getParameter("bno");
 		RepleDAO rDao = RepleDAO.getInstance();
-		rDao.replydelete(rno);
+		int result = rDao.replydelete(rno);
 //		댓글 삭제시  댓글카운트 1증감 하는 코드작성
-		
+		System.out.println("delete====>"+bno1);
+		rDao.blogReplycntminus(bno1);
 		
 		return null;
 	}

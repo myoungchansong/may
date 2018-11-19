@@ -22,6 +22,11 @@ public class RepleDTO {
 	
 	
 	
+	public RepleDTO(int rno, String content) {
+		super();
+		this.rno = rno;
+		this.content = content;
+	}
 	public RepleDTO(String content, String writer, int bno) {
 		super();
 		this.content = content;
