@@ -32,7 +32,9 @@
 		</environments>
 		
 		<!-- Mapper.xml 파일 설정 -->
+		
 			<mappers>
 				<mapper resource="com/may/mybatis/MayMapper.xml"/>
 			</mappers>
+			
 </configuration>

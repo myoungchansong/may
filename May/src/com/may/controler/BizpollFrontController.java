@@ -52,34 +52,35 @@ import com.may.action.updateAction;
 @WebServlet("/BizpollFrontController")
 public class BizpollFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BizpollFrontController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public BizpollFrontController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//GET,POST 둘다 받음
+		
+		//한글깨짐 방지(POST방식): 가장 위에 적어주세요.
 		request.setCharacterEncoding("UTF-8");
-
-		Action action = null;
-		ActionForward forward = null;
-
+		
+		Action action =null; 			// 실제 동작하는 부분
+		ActionForward forward = null;   //forward, sendRedirect 설정 
+		
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
-		String command = uri.substring(ctx.length());
-		System.out.println("uri:" + uri);
-		System.out.println("ctx:" + ctx);
-		System.out.println("페이지 이동 ==>" + command);
-
-		// action단 이동
+		String command = uri.substring(ctx.length());  //index.bizpoll
+		
+		System.out.println("11111111111uri:"+uri);
+		System.out.println("111111111111111ctx:"+ctx);
+		System.out.println("페이지 이동====>"+command);
+		System.out.println("dwqdwqdqwdwq");
 
 		if (command.equals("/index.bizpoll")) {
 			action = new IndexAction();

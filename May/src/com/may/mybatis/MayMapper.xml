@@ -57,15 +57,20 @@
 	
 
 
-
-
-	
 	
 	<select id="replyListAll" parameterType="String" resultType="com.may.dto.RepleDTO">
 		SELECT * FROM mayreply
 		WHERE bno = #{bno}
 		ORDER BY rno ASC
 	</select>
+
+
+
+
+
+
+
+
 
 
 	<!--blogDAO -->
@@ -203,6 +208,32 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<!-- productDAO -->
   <select id="bestView" resultType="com.may.dto.ProductDTO">
  	<![CDATA[
@@ -223,6 +254,33 @@
 	
  	
   </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 	<!-- MEMBERDAO -->
 	<!-- maym -->

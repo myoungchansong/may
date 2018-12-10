@@ -28,7 +28,6 @@ public class blogAction implements Action {
 		
 		CriteriaDTO criDto = new CriteriaDTO();
 		
-		
 		int page =1;
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -36,7 +35,12 @@ public class blogAction implements Action {
 		System.out.println("페이지 번호 : "+ page);
 		criDto.setPage(page);
 		
-//		====================================================================
+		
+		
+		
+		
+		
+//		====================검색기능================================================
 		String code = "new";
 		
 		if(request.getParameter("key") !=null) {
@@ -65,17 +69,29 @@ public class blogAction implements Action {
 		
 		
 		blogDAO bDao = blogDAO.getInstance();
+		
+		
+		
+		
+		
+		
 //		게시글 목록 정보들 출력
+		
+		
 		List<blogDTO> blogList = bDao.blogListAll(criDto);
 		
 		request.setAttribute("blogList", blogList);
+		
+		
+		
+		
 		
 //     현재 날짜 출력 =============================================================
 		
 		Date today = new Date();
 		request.setAttribute("today", today);
 		
-//	   	페이지  =============================================================		
+//	   	페이지  네이션=============================================================		
 		
 		
 		PageMakerDTO pageMaker = new PageMakerDTO();

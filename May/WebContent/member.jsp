@@ -324,13 +324,6 @@ select {
 							var idVal = $(this).val();
 							alert(idVal);
 							if (idVal != "") {
-
-								/* ajax db 갔다
-								view -> controller -> model -> db
-								{"id=":idVal},
-								"id" + idVal,
-								 */
-								//
 								$.ajax({
 									url : "idCheck.bizpoll",
 									type : "POST",

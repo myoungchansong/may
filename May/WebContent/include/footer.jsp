@@ -70,7 +70,9 @@
 	
 		<div id="footerdiv">
 			<span id="do"style="color:white;">공지사항:</span>
-			<span style="display: inline-block; line-height: 50px; ">2018.10.31(수요일)</span>
+			<span style="display: inline-block; line-height: 50px; ">
+				제작일 : 2018-10-31(수요일)
+			</span>
 		</div>
 		
 		<div id="nav">
@@ -88,4 +90,5 @@
 		
 	</div>
 </body>
+
 </html>

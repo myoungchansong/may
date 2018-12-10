@@ -56,6 +56,7 @@ public class MayMemberDAO {
 		sqlSession = sqlSessionFactory.openSession();
 		try {
 			result = sqlSession.selectOne("confirmID", userid);
+			System.out.println("result ===========>"+result);
 			
 			if (result != null) {
 				result = "-1";

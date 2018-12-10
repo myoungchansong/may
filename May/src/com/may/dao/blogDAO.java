@@ -15,7 +15,6 @@ import com.may.mybatis.SqlMapConfig;
 public class blogDAO {
 	
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
-	// mapper에 접근하기 위한 sqlsession
 
 	SqlSession sqlSession;
 

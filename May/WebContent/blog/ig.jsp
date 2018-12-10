@@ -222,7 +222,7 @@
 		left: 360px;
 		top: -20px;
 		font-size: 11px;
-			
+		border-color: white;
 	}
 	#goodbutton{
 		width: 50px;
@@ -230,6 +230,8 @@
 		line-height: 30px;
 		border: none;
 	}
+	
+	
 </style>
 <script type="text/javascript" src="<%=path%>/SmartEditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -390,7 +392,7 @@
 					</div>
 						<div id="file">
 							<a href="download.bizpoll?file=${blogview.filename}">${blogview.filename}
-							(<fmt:formatNumber type="number" pattern="0.0" value="${blogview.filesize /12}"/>)kb</a>
+							(<fmt:formatNumber type="number" pattern="0.0" value="${blogview.filesize/12}"/>)kb</a>
 						</div>
 					
 					<div id="war">
@@ -421,10 +423,10 @@
 		<div id="lingk">
 			<c:if test="${sessionScope.loginUser.id == blogview.writer}">
 			<!-- 	<button class="btn4">삭제</button> -->
-				<button  id="blogupdate">수정</button>
+				<button  id="blogupdat" style="border: 1px solid black;">수정</button>
 						<!-- Button to Open the Modal -->
 						<button type="button" class="btn btn-primary btn4" data-toggle="modal"
-							data-target="#myModal" style="padding: 0px 0px 0px 0px;">삭제</button>
+							data-target="#myModal" style="padding: 0px 0px 0px 0px; border: 1px solid black;">삭제</button>
 
 						<!-- The Modal -->
 						<div class="modal fade" id="myModal">
@@ -443,9 +445,9 @@
 									<!-- Modal footer -->
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal" style="background-color: blue" id="modal_btn">삭제</button>
+											data-dismiss="modal" style="background-color: blue" id="modal_btn" style="border-color: black;">삭제</button>
 										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal" >취소</button>
+											data-dismiss="modal"style="border-color: black;" >취소</button>
 									</div>
 
 								</div>
@@ -454,8 +456,8 @@
 
 					
 				</c:if>
-			<button class="btn4">답변</button>
-			<button class="btn4" id="blog_list">목록</button>
+			<button class="btn4" style="border: 1px solid black;">답변</button>
+			<button class="btn4" id="blog_list" style="border: 1px solid black;">목록</button>
 		</div>
 			
 		</div>

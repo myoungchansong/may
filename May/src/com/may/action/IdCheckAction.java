@@ -27,11 +27,10 @@ public class IdCheckAction implements Action{
 				System.out.println("userid================>"+userid);
 				String msg = mDao.confirmID(userid);
 				System.out.println("===============idCheck>"+msg);
-				/*사용 x*/
-				/*request.setAttribute("idCount", msg);*/
-				/*ajax = json방식 => 값을 대신 전달 json방식*/
+			
+				
 				JSONObject jObj = new JSONObject();
-				//json.simple 라이브러리 필요
+				
 				jObj.put("message", msg);
 				jObj.put("id", userid);
 				
